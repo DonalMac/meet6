@@ -1,0 +1,2 @@
+  GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/get-auth-url
+  GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/token/{code}
