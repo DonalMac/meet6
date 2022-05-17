@@ -1,2 +1,25 @@
   GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/get-auth-url
   GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/token/{code}
+
+  GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/get-auth-url
+  GET - https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/token/{code}
+
+
+   // -- STEP 3
+    const getEvents = document.getElementById('getEvents')
+    const events = document.getElementById('events')
+    const getCalendarEvents =
+      'https://q5nrbf8d0k.execute-api.eu-central-1.amazonaws.com/dev/api/get-events'
+
+    getEvents.onclick = function () {
+      const { access_token } = JSON.parse(accessTokenElement.innerText)
+      const eventRequest = getCalendarEvents + '/' + access_token
+      fetch(eventRequest)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (json) {
+          events.innerText = JSON.stringify(json, null, 2)
+        })
+    }
+      // -- END OF STEP 3
