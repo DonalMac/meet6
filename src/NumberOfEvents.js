@@ -1,17 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class NumberOfEvents extends Component {
+  constructor() {
+    super();
+    // stting the values for the default states
+    this.state = {
+      numberOfEvents: 32,
+    };
+  }
+
+  updateNumberOfEvents = (event) => {
+    this.setState({
+      numberOfEvents: event.target.value,
+    });
+    this.props.updateEventNumbers(event.target.value);
+  };
 
   render() {
     return (
-      <div className="NumberOfEvents">
-        <h4>Number of events to display</h4>
+      <div className="numberOfEvents">
+        <label className="numberOfEvents__lable">Number of Events</label>
         <input
-          className="number-of-events"
           type="number"
-          value={this.props.numberOfEvents}
-          onChange={(e) => this.props.updateNumberOfEvents(e)}>
-        </input>
+          className="numberOfEvents__input"
+          value={this.state.numberOfEvents}
+          onChange={this.updateNumberOfEvents}
+        ></input>
       </div>
     );
   }

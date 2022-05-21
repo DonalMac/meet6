@@ -1,21 +1,32 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import NumberOfEvents from '../NumberOfEvents';
+import React from "react";
+import { shallow } from "enzyme";
+import NumberOfEvents from "../NumberOfEvents";
 
-//Feature 2: Specify number of events
-
-describe('<NumberOfEvents /> component', () => {
+describe("<NumberOfEvents /> component", () => {
   let NumberOfEventsWrapper;
   beforeAll(() => {
-    NumberOfEventsWrapper = shallow(<NumberOfEvents />);
+    NumberOfEventsWrapper = shallow(<NumberOfEvents updateEventNumbers={() => { }} />);
   });
 
-  test('render text input', () => {
-    expect(NumberOfEventsWrapper.find('.number-of-events')).toHaveLength(1);
+  test("render number of events", () => {
+    expect(NumberOfEventsWrapper.find(".numberOfEvents")).toHaveLength(1);
   });
 
-  test('renders text input correctly', () => {
-    const numberOfEvents = NumberOfEventsWrapper.prop('numberOfEvents');
-    expect(NumberOfEventsWrapper.find('.number-of-events').prop('value')).toBe(numberOfEvents);
+  test("render lable for numberOfEvents", () => {
+    expect(NumberOfEventsWrapper.find(".numberOfEvents__lable")).toHaveLength(1);
   });
-})
+
+  test("render input for numberOfEvents", () => {
+    expect(NumberOfEventsWrapper.find(".numberOfEvents__input")).toHaveLength(1);
+  });
+
+  test("render number of events 32 by default", () => {
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(32);
+  });
+
+  test("changed number of Event state, when input number is changed by user", () => {
+    const eventObject = { target: { value: 16 } };
+    NumberOfEventsWrapper.find(".numberOfEvents__input").simulate("change", eventObject);
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(16);
+  });
+});
