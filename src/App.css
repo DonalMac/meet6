@@ -3,10 +3,18 @@
 .App {
   text-align: center;
   padding: 2% 5%;
+  background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
 }
 
 .App * {
   box-sizing: border-box;
+}
+
+.numberOfEvents__label,
+.citySearch__label {
+  font-size: 20px;
+  padding: 10px;
+  font-weight: bolder;
 }
 
 ul {
@@ -85,6 +93,7 @@ input[type="number"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   position: relative;
+  background: linear-gradient(89deg, #fdfdfe 0%, #00cfce 100%);
 }
 
 .details-btn {
