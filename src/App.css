@@ -10,6 +10,20 @@
   box-sizing: border-box;
 }
 
+.navbar-brand {
+  color: black;
+  font-size: 3rem;
+}
+
+#navSpan {
+  color: #00fffd;
+  font-size: 3rem;
+}
+
+.mb-3 {
+  background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
+}
+
 .numberOfEvents__label,
 .citySearch__label {
   font-size: 20px;
@@ -65,7 +79,7 @@ input[type="number"] {
   z-index: 2;
   align-self: center;
   /*margin: 0;*/
-  top: 65px;
+  top: 75px;
   font-size: 14px;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
@@ -140,8 +154,10 @@ input[type="number"] {
 }
 
 .Alert {
-  position: fixed;
+  /*position: fixed;*/
   top: 20px;
+  font-size: 1.5rem;
+
 }
 
 .data-vis-wrapper {
