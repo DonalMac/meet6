@@ -2,6 +2,7 @@ import { mockData } from './mock-data';
 import axios from 'axios';
 import NProgress from 'nprogress';
 
+
 /**
  *
  * @param {*} events:
@@ -18,7 +19,7 @@ export const extractLocations = (events) => {
 };
 
 //if access token found in storage
-const checkToken = async (accessToken) => {
+export const checkToken = async (accessToken) => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
