@@ -1,39 +1,54 @@
-import React from 'react'
-import './WelcomeScreen.css'
+import React from "react";
+
+import "./WelcomeScreen.css";
+
 function WelcomeScreen(props) {
+  //const logo = require("./meet-app-192.png");
+  const logo = undefined;
   return props.showWelcomeScreen ? (
-    <div className='WelcomeScreen'>
-      <h1>Welcome to the Meet app</h1>
-      <h4>
-        Log in to see upcoming events around the world for full-stack developers
-      </h4>
-      <div className='button_cont' align='center'>
-        <div class='google-btn'>
-          <div class='google-icon-wrapper'>
+    <div className="bgimg">
+      <img className="logoPosition" src={logo} alt="logo" />
+
+      <div className="middleText">
+        <h1 className="h1">Welcome to Meet <span id="navSpan">React </span> App</h1>
+
+        <h2 className="middleDownText">
+          <a
+            className="a"
+            href="https://donalmac.github.io/meet6/privacy.html"
+            rel="nofollow noopener"
+          >
+            Privacy policy
+          </a>
+        </h2>
+      </div>
+      <div className="google-btn-position">
+        <div className="google-btn">
+          <div className="google-icon-wrapper">
             <img
-              class='google-icon'
-              src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg'
-              alt='Google sign-in'
+              className="google-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+              alt="google-icon"
             />
           </div>
-          <button
+
+          <p
+            className="btn-text"
             onClick={() => {
-              props.getAccessToken()
+              props.getAccessToken();
             }}
-            rel='nofollow noopener'
-            class='btn-text'
+            rel="nofollow noopener"
           >
             <b>Sign in with google</b>
-          </button>
+          </p>
         </div>
       </div>
-      <a
-        href='https://donalmac.github.io/meetapp/privacy.html'
-        rel='nofollow noopener'
-      >
-        Privacy policy
-      </a>
+
+      <div className="transbox bottomText">
+        <p>Login to see upcoming events around the WORLD for full-stack developers.</p>
+      </div>
     </div>
-  ) : null
+  ) : null;
 }
-export default WelcomeScreen
+
+export default WelcomeScreen;
