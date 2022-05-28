@@ -2,19 +2,26 @@ import React, { Component } from "react";
 import EventList from "./EventList";
 import NumberOfEvents from "./NumberOfEvents";
 import CitySearch from "./CitySearch";
-
-import WelcomeScreen from './WelcomeScreen';
+import EventGenre from "./EventGenre";
 import { getEvents, extractLocations, checkToken, getAccessToken } from
   './api';
-
-//import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
 import { Navbar, Nav } from 'react-bootstrap';
-//import Nav from "react-bootstrap/Nav";
+import Container from "react-bootstrap/Container";
+import WelcomeScreen from './WelcomeScreen';
 import Alert from "react-bootstrap/Alert";
+import {
+  ScatterChart,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 import "./App.css";
 import "./nprogress.css";
+import { Col, Row } from "react-bootstrap";
 
 class App extends Component {
   state = {
@@ -84,8 +91,19 @@ class App extends Component {
     this.updateEvents(this.state.location, eventNumbers);
   };
 
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length;
+      const city = location.split(/[,-]+/).shift();
+      return { city, number };
+    });
+
+    return data;
+  };
+
   render() {
-    //const logo = require("./meetUp_logo_transparent.png"); // with require
+
     if (
       this.state.showWelcomeScreen === undefined &&
       navigator.onLine &&
@@ -127,6 +145,41 @@ class App extends Component {
             Attention: The app is running in offline mode! New Events cannot be loaded.
           </Alert>
         )}
+
+        {/* implementing a scatterChart */}
+        <Container md={12} lg={6}>
+          <Row>
+            <Col className="centerElements">
+              {/* implementing a wildly popular pie chart to visualize the popularity of event genres */}
+              <h4>Popularity of events</h4>
+              <EventGenre events={this.state.events} />
+            </Col>
+            <Col className="centerElements">
+              <h4>Events in each city</h4>
+              <ResponsiveContainer height={400} minWidth={400}>
+                <ScatterChart
+                  margin={{
+                    top: 20,
+                    right: 60,
+                    bottom: 20,
+                    left: 0,
+                  }}
+                >
+                  <CartesianGrid />
+                  <XAxis type="category" dataKey="city" name="City" />
+                  <YAxis
+                    type="number"
+                    dataKey="number"
+                    name="Number of events"
+                    allowDecimals={false}
+                  />
+                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                  <Scatter data={this.getData()} fill="#FFC898" />
+                </ScatterChart>
+              </ResponsiveContainer>
+            </Col>
+          </Row>
+        </Container>
         <EventList events={this.state.events} />
       </div>
     );
