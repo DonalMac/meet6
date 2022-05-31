@@ -3,6 +3,7 @@ import EventList from "./EventList";
 import NumberOfEvents from "./NumberOfEvents";
 import CitySearch from "./CitySearch";
 import EventGenre from "./EventGenre";
+import EventGenreCity from "./EventGenreCity";
 import { getEvents, extractLocations, checkToken, getAccessToken } from
   './api';
 import { Navbar, Nav } from 'react-bootstrap';
@@ -30,6 +31,8 @@ class App extends Component {
     numberOfEvents: 32,
     location: "all",
     showWelcomeScreen: undefined,
+    fullEvents: [],
+    buttonExpanded: false,
   };
 
   updateEvents = (location, eventCount = this.state.numberOfEvents) => {
@@ -102,6 +105,10 @@ class App extends Component {
     return data;
   };
 
+  showDetailsToggle() {
+    //if there is a click, the state goes from false to true, then true to false
+    this.setState({ buttonExpanded: !this.state.buttonExpanded });
+  }
   render() {
 
     if (
@@ -124,17 +131,18 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar sticky="top" bg="light" expand="lg" variant="light" className="mb-3">
+        <Navbar sticky="top" bg="light" expand="lg" variant="light" >
           <Container fluid>
-            <Navbar.Brand id="navbar-brand" >Meet <span id="navSpan">React </span> App{" "}
-            </Navbar.Brand>
+            <Container className="mb-3">
+              <Navbar.Brand id="navbar-brand" >Meet <span id="navSpan">React </span> App{" "}
+              </Navbar.Brand></Container>
 
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto">
                 {" "}
-                <NumberOfEvents updateEventNumbers={this.updateEventNumbers} />
-                {" "}
                 <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+                {" "}
+                <NumberOfEvents updateEventNumbers={this.updateEventNumbers} />
 
               </Nav>
             </Navbar.Collapse>
@@ -146,41 +154,70 @@ class App extends Component {
           </Alert>
         )}
 
-        {/* implementing a scatterChart */}
-        <Container md={12} lg={6}>
-          <Row>
-            <Col className="centerElements">
-              {/* implementing a wildly popular pie chart to visualize the popularity of event genres */}
-              <h4>Popularity of events</h4>
-              <EventGenre events={this.state.events} />
-            </Col>
-            <Col className="centerElements">
-              <h4>Events in each city</h4>
-              <ResponsiveContainer height={400} minWidth={400}>
-                <ScatterChart
-                  margin={{
-                    top: 20,
-                    right: 60,
-                    bottom: 20,
-                    left: 0,
-                  }}
-                >
-                  <CartesianGrid />
-                  <XAxis type="category" dataKey="city" name="City" />
-                  <YAxis
-                    type="number"
-                    dataKey="number"
-                    name="Number of events"
-                    allowDecimals={false}
-                  />
-                  <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                  <Scatter data={this.getData()} fill="#FFC898" />
-                </ScatterChart>
-              </ResponsiveContainer>
-            </Col>
-          </Row>
-        </Container>
+        <div
+          className={
+            this.state.buttonExpanded
+              ? "charts-container charts-container-hide"
+              : "charts-container"
+          }
+        >
+          <button
+            onClick={() => this.showDetailsToggle()}
+            className={
+              this.state.buttonExpanded ? "showCharts-button" : "showCharts-button"
+            }
+          >
+            {/**button text is hide details if state is true, otherwise it's "see details" */}
+            {this.state.buttonExpanded
+              ? "Hide Data Charts"
+              : "View Data Charts"}
+          </button>
+
+
+          {this.state.buttonExpanded && (
+            <Container id="chartContainer" md={12} lg={12}>
+              <Row>
+                <Col className="centerElements"><h4>PieChart Active Shape Example</h4>
+                  {/* implementing a wildly popular pie chart to visualize the popularity of event genres */}
+
+                  <EventGenre events={this.state.events} /></Col>
+                <Col className="centerElements"><h4>PieChart Custom label Example</h4>
+
+                  <EventGenreCity events={this.state.events} />
+                </Col>
+              </Row><Row>
+                <Col className="centerElements">
+                  <h4>Events in each city</h4>
+                  <ResponsiveContainer height={400} minWidth={400}>
+                    <ScatterChart
+                      margin={{
+                        top: 20,
+                        right: 60,
+                        bottom: 20,
+                        left: 0,
+                      }}
+                    >
+                      <CartesianGrid stroke="none" />
+                      <XAxis type="category" dataKey="city" name="city" stroke="#343a40" />
+                      <YAxis
+                        type="number"
+                        dataKey="number"
+                        name="Number of events"
+                        allowDecimals={false}
+
+                      />
+                      <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                      <Scatter data={this.getData()} fill="darkblue" />
+                    </ScatterChart>
+                  </ResponsiveContainer>
+                </Col>
+              </Row>
+            </Container>
+          )}
+        </div>
+
         <EventList events={this.state.events} />
+
       </div>
     );
   }

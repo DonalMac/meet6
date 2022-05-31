@@ -3,8 +3,9 @@
 
 .App {
   text-align: center;
-  padding: 2% 5%;
+  padding: 0% 4%;
   background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
+  font-family: "Tajawal", sans-serif;
 }
 
 .App * {
@@ -12,19 +13,17 @@
 }
 
 .navbar-brand {
-  color: black;
+  color: White;
   font-size: 3.5rem;
   font-family: "Tajawal", sans-serif;
 }
 
 #navSpan {
   color: #00fffd;
-  font-size: 3.5rem;
+
 }
 
-.mb-3 {
-  background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
-}
+
 
 .numberOfEvents__label,
 .citySearch__label {
@@ -83,6 +82,7 @@ input[type="number"] {
   /*margin: 0;*/
   top: 75px;
   font-size: 14px;
+  font-weight: bolder;
   box-shadow: 10px 10px 16px -12px rgba(0, 0, 0, 0.75);
 }
 
@@ -105,14 +105,32 @@ input[type="number"] {
 .event {
   padding: 10px 10px 35px;
   margin-bottom: 10px;
-  text-align: left;
-  border: 1px solid #ccc;
+  /*text-align: left;*/
+  border: 1px solid black;
   border-radius: 4px;
   position: relative;
   background: linear-gradient(89deg, #fdfdfe 0%, #00cfce 100%);
+  font-weight: bolder;
 }
 
-.details-btn {
+.showCharts-button {
+  right: 5px;
+  bottom: 5px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  background: #343a40;
+  color: silver;
+}
+
+.showCharts-button:hover {
+
+  background: #414950;
+  color: rgb(33, 254, 254);
+}
+
+.details-button {
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -120,6 +138,14 @@ input[type="number"] {
   border-radius: 4px;
   outline: none;
   cursor: pointer;
+  background: #343a40;
+  color: silver;
+}
+
+.details-button:hover {
+
+  background: #414950;
+  color: rgb(33, 254, 254);
 }
 
 .name {
@@ -220,7 +246,7 @@ input[type="number"] {
 .google-icon {
   position: absolute;
   margin-top: 11px;
-  margin-left: -8px;
+  margin-left: -14px;
   width: 18px;
   height: 18px;
 }
@@ -234,17 +260,54 @@ input[type="number"] {
   font-family: "Roboto";
 }
 
+#chartContainer {
+  background: linear-gradient(89deg, #ffffff 0%, #00cfce 100%);
+  margin-top: 15px;
+}
 
 
-@media only screen and (min-width: 992px) {
-  .data-vis-wrapper {
-    flex-direction: row;
+.centerElements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 700;
+  padding-bottom: 50px;
+}
+
+.centerElements h4 {
+  font-size: 22px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .event__summary {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (min-width: 992px) {}
+
+@media only screen and (max-width: 991px) {
+  .numberOfEvents {
+    grid-template-areas:
+      "header header"
+      "main ."
+      "footer .";
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .event__summary {
+    font-size: 28px;
   }
 
-  .data-vis-wrapper .recharts-responsive-container {
-    flex-basis: 50%;
-    max-width: 50%;
-    min-width: auto;
-    margin: 0 auto;
+  #chartContainer h4 {
+    margin-left: 5px;
   }
+
+  .scatterChartWrapper h4 {
+    font-size: 22px;
+  }
+
+
 }

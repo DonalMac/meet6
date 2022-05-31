@@ -5,16 +5,13 @@ html {
   height: 100%;
   margin: 0;
   background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
-}
 
-.bgimg {
-  background: linear-gradient(89deg, #343a40 0%, #00cfce 100%);
-  height: 100%;
+  font-family: "Tajawal", sans-serif;
   background-position: center;
   background-size: cover;
-  color: white;
-  font-family: "Tajawal", sans-serif;
 }
+
+
 
 .h1 {
   font-size: 60px;
@@ -30,17 +27,19 @@ html {
 .middleText {
   position: relative;
   text-align: center;
-  transform: translate(0%, 100%);
+  font-size: 3.5rem;
+  color: white;
 }
 
 .middleDownText {
   position: relative;
   text-shadow: 1px 1px 2px rgba(68, 64, 64, 0.363);
-  transform: translate(0%, 100%);
+
 }
 
 .a {
   color: #ffffff;
+
 }
 
 .a:link {
@@ -59,7 +58,7 @@ html {
   margin-right: 10px;
   text-align: center;
   font-size: 18px;
-  transform: translate(0%, 400%);
+  transform: translate(0%, 50%);
 }
 
 div.transbox {
@@ -84,7 +83,6 @@ div.transbox p {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translate(0%, 380%);
 }
 
 .google-btn {
@@ -108,9 +106,10 @@ div.transbox p {
 }
 
 .google-btn .google-icon {
-  margin-top: 11px;
-  width: 22px;
-  height: 22px;
+  margin-top: 6px;
+  margin-right: 11px;
+  width: 30px;
+  height: 30px;
 }
 
 .google-btn .btn-text {
@@ -119,7 +118,7 @@ div.transbox p {
   color: #fff;
   font-size: 14px;
   letter-spacing: 0.2px;
-  font-family: "Roboto";
+  font-family: "Tajawal", sans-serif;
 }
 
 .google-btn:hover {
@@ -144,12 +143,12 @@ div.transbox p {
 
   .middleDownText {
     font-size: 22px;
-    transform: translate(0%, 30%);
+    transform: translate(0%, 200%);
   }
 
   .bottomText {
     font-size: 16px;
-    transform: translate(0%, 60%);
+    transform: translate(0%, 120%);
   }
 
   div.transbox {

@@ -26,10 +26,10 @@ const renderActiveShape = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
   let addStoEvent;
-  if (value > 1) {
-    addStoEvent = "events";
-  } else {
+  if (value === 1) {
     addStoEvent = "event";
+  } else {
+    addStoEvent = "events";
   }
 
   return (
@@ -84,8 +84,10 @@ const getData = (events) => {
     const value = events.filter((event) => event.summary.includes(genre)).length;
 
     return { name: genre, value };
+
   });
   return data;
+
 };
 
 export default function EventGenre({ events }) {
@@ -104,7 +106,7 @@ export default function EventGenre({ events }) {
   const colors = ["#655D8A", "#FDB827", "#D885A3", "#7897AB", "#6D9886"];
 
   return (
-    <PieChart width={400} height={400}>
+    <><PieChart width={400} height={250}>
       <Pie
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
@@ -121,6 +123,6 @@ export default function EventGenre({ events }) {
           <Cell key={`cell-${index}`} fill={colors[index]} />
         ))}
       </Pie>
-    </PieChart>
+    </PieChart></>
   );
 }
