@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class Event extends Component {
   state = {
     collapsed: true,
+    date: "",
   };
 
   handleClick = () => {
@@ -14,11 +15,55 @@ class Event extends Component {
   render() {
     const { event } = this.props;
     const { collapsed } = this.state;
+
+    const eventDate = event.start.dateTime;
+    let months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let splitDate = eventDate.split(/[-T]+/);
+    let exactTime = splitDate[3].split("+")[0].slice(0, 5);
+    let extraTime = splitDate[3].split("+")[1].slice(1, 2);
+    let yearDate = splitDate[0];
+    let yearMonth = splitDate[1].includes("0")
+      ? splitDate[1].slice(1, 2)
+      : splitDate[1];
+    let yearDay = splitDate[2];
+    var yearMonthInt = parseInt(yearMonth);
+    let monthStr = months.slice(yearMonthInt, yearMonthInt + 1);
+    let dateToConvert = `${monthStr} ${yearDay}, ${yearDate} ${exactTime}`;
+    let converD = new Date(dateToConvert);
+    let weekdays = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+    let dayInt = converD.getDay();
+    //this is the exact weekday (name)
+    let actualDay = weekdays[dayInt];
+    let convertedDate = `${actualDay} ${yearDay}/${splitDate[1]}/${yearDate}, at ${exactTime}`;
     return (
       <div className="event">
         <h2 className="summary">{event.summary}</h2>
         <p className="start-date">
-          {event.start.dateTime} ({event.start.timeZone})
+          {convertedDate} <br></br>
+          <span>
+            Timezone: {event.start.timeZone} + {extraTime} hours
+          </span>
         </p>
 
         <p className="location">

@@ -1,3 +1,8 @@
+import { mockData } from './mock-data';
+import axios from 'axios';
+import NProgress from 'nprogress';
+
+
 /**
  *
  * @param {*} events:
@@ -7,11 +12,6 @@
  * The Set will remove all duplicates from the array.
  */
 
-import { mockData } from './mock-data';
-import axios from 'axios';
-import NProgress from 'nprogress';
-
-
 export const extractLocations = (events) => {
   var extractLocations = events.map((event) => event.location);
   var locations = [...new Set(extractLocations)];
@@ -19,7 +19,7 @@ export const extractLocations = (events) => {
 };
 
 //if access token found in storage
-const checkToken = async (accessToken) => {
+export const checkToken = async (accessToken) => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
@@ -27,21 +27,6 @@ const checkToken = async (accessToken) => {
     .catch((error) => error.json());
 
   return result;
-};
-
-//remove the code from the URL once you’re finished with it
-const removeQuery = () => {
-  if (window.history.pushState && window.location.pathname) {
-    var newurl =
-      window.location.protocol +
-      "//" +
-      window.location.host +
-      window.location.pathname;
-    window.history.pushState("", "", newurl);
-  } else {
-    newurl = window.location.protocol + "//" + window.location.host;
-    window.history.pushState("", "", newurl);
-  }
 };
 
 //getEvents function
@@ -53,12 +38,17 @@ export const getEvents = async () => {
     return mockData;
   }
 
+  if (!navigator.onLine) {
+    const data = localStorage.getItem("lastEvents");
+    NProgress.done();
+    return data ? JSON.parse(data).events : [];
+  }
 
   const token = await getAccessToken();
 
   if (token) {
     removeQuery();
-    const url = 'https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/get-events' + '/' + token;
+    const url = "https://hx8otqumxe.execute-api.eu-west-2.amazonaws.com/dev/api/get-events" + "/" + token;
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
@@ -88,7 +78,22 @@ export const getAccessToken = async () => {
     return code && getToken(code);
   }
   return accessToken;
-}
+};
+
+//remove the code from the URL once you’re finished with it
+const removeQuery = () => {
+  if (window.history.pushState && window.location.pathname) {
+    var newurl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname;
+    window.history.pushState("", "", newurl);
+  } else {
+    newurl = window.location.protocol + "//" + window.location.host;
+    window.history.pushState("", "", newurl);
+  }
+};
 
 //new token
 const getToken = async (code) => {
