@@ -214,3 +214,5 @@ SCENARIO 1:<br/>
 ## App / Livepage:
 
 [Link to Livepage](https://donalmac.github.io/meet6/)
+
+![HomePage](./img/meet6.png)
